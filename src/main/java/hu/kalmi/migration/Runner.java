@@ -12,17 +12,22 @@ public class Runner implements ApplicationRunner {
 
 	@Autowired
 	private ExcelGenerator excelGenerator;
-	
+
+	@Autowired
+	private ExcelGeneratorV2 excelGeneratorV2;
+
 	@Autowired
 	private MigrationTool migrationTool;
-	
+
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		Set<String> optionNames = args.getOptionNames();
 		if (optionNames.contains("migrate")) {
 			migrationTool.run(args);
-		} else {
+		} else if (optionNames.contains("generate")) {
 			excelGenerator.run(args);
+		} else if (optionNames.contains("generateV2")) {
+			excelGeneratorV2.run(args);
 		}
 	}
 }
